@@ -115,8 +115,8 @@ int main(int argc, char** argv)
     ros::init(argc, argv, "demo_node");
     ros::NodeHandle nh("~");
 
-    _map_sub  = nh.subscribe( "map",       1, rcvPointCloudCallBack );
-    _pts_sub  = nh.subscribe( "waypoints", 1, rcvWaypointsCallback );
+    _map_sub  = nh.subscribe( "map",       1, rcvPointCloudCallBack );//地图读取，topic在launch里被remap了
+    _pts_sub  = nh.subscribe( "waypoints", 1, rcvWaypointsCallback );//路点读取，topic在launch里被remap了
 
     _grid_map_vis_pub             = nh.advertise<sensor_msgs::PointCloud2>("grid_map_vis", 1);
     _grid_path_vis_pub            = nh.advertise<visualization_msgs::Marker>("grid_path_vis", 1);
