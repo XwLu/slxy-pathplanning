@@ -1,8 +1,8 @@
 <launch>
 
-<arg name="map_size_x" default="20.0"/>
-<arg name="map_size_y" default="20.0"/>
-<arg name="map_size_z" default=" 10.0"/>
+<arg name="map_size_x" default="10.0"/>
+<arg name="map_size_y" default="10.0"/>
+<arg name="map_size_z" default=" 5.0"/>
 
 <arg name="start_x" default=" 0.0"/>
 <arg name="start_y" default=" 0.0"/>
@@ -43,7 +43,7 @@
 
       <param name="CircleShape/lower_circle_rad"   value="0.6"/>        
       <param name="CircleShape/upper_circle_rad"   value="2.0"/>        
-
+      
       <param name="sensing/rate"   value="0.5"/>        
   </node>
 
