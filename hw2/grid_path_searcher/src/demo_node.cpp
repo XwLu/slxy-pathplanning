@@ -54,12 +54,10 @@ void rcvWaypointsCallback(const nav_msgs::Path & wp)
 {
   if( wp.poses[0].pose.position.z < 0.0 || _has_map == false )
     return;
-
   Vector3d target_pt;
   target_pt << wp.poses[0].pose.position.x,
           wp.poses[0].pose.position.y,
           wp.poses[0].pose.position.z;
-
   ROS_INFO("[node] receive the planning target");
   ROS_INFO("x: %f, y: %f, z: %f",  wp.poses[0].pose.position.x,  wp.poses[0].pose.position.y,  wp.poses[0].pose.position.z);
   pathFinding(_start_pt, target_pt);

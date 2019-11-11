@@ -1,6 +1,8 @@
 # The development log of hw2
 
-## A* without any improvemnet
+## A* with Euclidean Heuristic
+
+
 
 Position(m) | Time cost(ms) |  visited nodes  
 -|-|-
@@ -11,4 +13,11 @@ x: -4.255113, y: -4.657811, z: 0.500000 | 31.945834 | 944 |
 
 ---
 
-## A* with
+## A* with Diagonal Heuristic
+
+Position(m) | Time cost(ms) |  visited nodes  
+-|-|-
+x: 3.923522, y: -3.017135, z: 2.479999 | 2.013196 | 157 |
+x:-3.722114, y: 4.291069, z: 0.000000 | 4.863505 | 225 |
+x: 4.508232, y: 3.106406, z: 2.279999 | 8.639215 | 419 |
+x: x: -4.343741, y: -3.301943, z: 1.519999 | 3.399377 | 185 |

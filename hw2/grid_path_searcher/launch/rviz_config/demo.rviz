@@ -24,7 +24,7 @@ Panels:
     Experimental: false
     Name: Time
     SyncMode: 0
-    SyncSource: ""
+    SyncSource: AllMap
 Visualization Manager:
   Class: ""
   Displays:
@@ -56,7 +56,7 @@ Visualization Manager:
     - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
-        Max Value: 1.89999998
+        Max Value: 4.30000019
         Min Value: 0.100000001
         Value: true
       Axis: Z
@@ -96,7 +96,7 @@ Visualization Manager:
       Marker Topic: /demo_node/grid_path_vis
       Name: gridPath
       Namespaces:
-        {}
+        demo_node/astar_path: true
       Queue Size: 100
       Value: true
   Enabled: true
@@ -115,7 +115,7 @@ Visualization Manager:
   Value: true
   Views:
     Current:
-      Angle: -0.00499999989
+      Angle: -0.0699999556
       Class: rviz/TopDownOrtho
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.0599999987
@@ -125,7 +125,7 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.00999999978
-      Scale: 76.8996658
+      Scale: 83.4386826
       Target Frame: <Fixed Frame>
       Value: TopDownOrtho (rviz)
       X: 0.372938633

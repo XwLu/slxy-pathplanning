@@ -7,7 +7,7 @@
 #include <Eigen/Eigen>
 #include "backward.hpp"
 #include "node.h"
-#include <unordered_set>
+#include <vector>
 
 class AstarPathFinder
 {	
