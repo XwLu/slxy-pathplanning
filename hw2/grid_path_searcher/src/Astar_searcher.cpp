@@ -300,6 +300,15 @@ void AstarPathFinder::AstarGraphSearch(Vector3d start_pt, Vector3d end_pt)
         please write your code below
         *
         */
+        //Tie Breaker
+        auto it = openSet.begin();
+        while(it != openSet.end()){
+          if (it->first == f){
+            f += 1.0 / (GLX_SIZE + GLZ_SIZE + GLYZ_SIZE);
+            break;
+          }
+          it++;
+        }
         neighborPtr->id = 1;
         neighborPtr->cameFrom = currentPtr;
         neighborPtr->gScore = g;
@@ -316,9 +325,7 @@ void AstarPathFinder::AstarGraphSearch(Vector3d start_pt, Vector3d end_pt)
         *
         */
         if(neighborPtr->gScore > g){
-          neighborPtr->gScore = g;
-          neighborPtr->fScore = f;
-          neighborPtr->cameFrom = currentPtr;
+          //remove the old one
           auto it = openSet.begin();
           while(it != openSet.end()){
             if (it->second == neighborPtr){
@@ -327,6 +334,19 @@ void AstarPathFinder::AstarGraphSearch(Vector3d start_pt, Vector3d end_pt)
             }
             it++;
           }
+          //Tie Breaker
+          it = openSet.begin();
+          while(it != openSet.end()){
+            if (it->first == f){
+              f += 1.0 / (GLX_SIZE + GLZ_SIZE + GLYZ_SIZE);
+              break;
+            }
+            it++;
+          }
+          //update
+          neighborPtr->gScore = g;
+          neighborPtr->fScore = f;
+          neighborPtr->cameFrom = currentPtr;
           openSet.insert(make_pair(f, neighborPtr));
         }
         continue;
