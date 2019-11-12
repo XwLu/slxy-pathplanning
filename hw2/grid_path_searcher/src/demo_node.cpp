@@ -106,7 +106,7 @@ void rcvPointCloudCallBack(const sensor_msgs::PointCloud2 & pointcloud_map)
 
 void pathFinding(const Vector3d start_pt, const Vector3d target_pt)
 {
-  const bool use_jps = 0;
+  const bool use_jps = 1;
   if (!use_jps){
     //Call A* to search for a path
     _astar_path_finder->AstarGraphSearch(start_pt, target_pt);

@@ -4,7 +4,7 @@
 
 
 
-Position(m) | Time cost(ms) |  visited nodes  
+Position(m) | Time cost(ms) |  visited nodes
 -|-|-
 x:3.599700, y:-4.593052, z:2.859998 | 45.724894| 1570 |
 x:-4.314540, y:4.263314, z:1.919999 | 11.957528 | 409 |
@@ -15,7 +15,7 @@ x: -4.255113, y: -4.657811, z: 0.500000 | 31.945834 | 944 |
 
 ## A* with Diagonal Heuristic
 
-Position(m) | Time cost(ms) |  visited nodes  
+Position(m) | Time cost(ms) |  visited nodes
 -|-|-
 x: 3.923522, y: -3.017135, z: 2.479999 | 2.013196 | 157 |
 x:-3.722114, y: 4.291069, z: 0.000000 | 4.863505 | 225 |
@@ -24,12 +24,23 @@ x: -4.343741, y: -3.301943, z: 1.519999 | 3.399377 | 185 |
 
 ---
 
-## A* with Tie Breaker
+## A* with Tie Breaker and Diagonal Heuristic
 
-Position(m) | Time cost(ms) |  visited nodes  
+Position(m) | Time cost(ms) |  visited nodes
 -|-|-
 x: 3.559829, y: -4.429315, z: 1.539999 | 5.086043 | 106 |
 x: -4.478196, y: 4.301750, z: 1.060000 | 2.646886 | 56 |
 x: 4.087692, y: 3.994277, z: 1.999999 | 2.593572 | 63 |
 x: -4.575386, y: -4.127377, z: 2.599999 | 4.038847 | 109 |
+
+---
+
+## JPS with Tie Breaker and Diagonal Heuristic
+
+Position(m) | Time cost(ms) |  visited nodes
+-|-|-
+x: 4.189598, y: -3.966235, z: 0.000000 | 0.736726 | 78 |
+x: -3.370604, y: 4.569540, z: 1.919999 | 1.188852 | 86 |
+x: 2.888064, y: 4.561578, z: 1.799999 | 0.451711 | 24 |
+x: -4.181687, y: -3.679389, z: 0.240000 | 0.470097 | 44 |
 
