@@ -1,8 +1,17 @@
 # The development log of hw2
 
+## A* with Manhattan Heuristic
+
+Position(m) | Time cost(ms) |  visited nodes
+-|-|-
+x: 4.253786, y: -4.881743, z: 2.779999 | 0.280323| 27 |
+x: -3.860725, y: 4.844850, z: 1.359999 | 39.298323 | 1810 |
+x: 4.681622, y: 3.009542, z: 3.119998 | 0.243267 | 24 |
+x: -4.730183, y: -4.800932, z: 2.299999 | 0.355704 | 25 |
+
+---
+
 ## A* with Euclidean Heuristic
-
-
 
 Position(m) | Time cost(ms) |  visited nodes
 -|-|-

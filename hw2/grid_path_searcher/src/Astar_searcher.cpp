@@ -193,10 +193,16 @@ double AstarPathFinder::getHeu(GridNodePtr node1, GridNodePtr node2)
   const int x = abs(node1->index[0] - node2->index[0]);
   const int y = abs(node1->index[1] - node2->index[1]);
   const int z = abs(node1->index[2] - node2->index[2]);
-  std::vector<int> xyz = {x, y ,z};
-  sort(xyz.begin(), xyz.end());
-  double distance = xyz[0] * sqrt(3.0) + (xyz[1] - xyz[0]) * sqrt(2.0) + xyz[2] - xyz[1];
-  //double distance = sqrt(x*x + y*y + z*z);
+  //Diagonal
+  //std::vector<int> xyz = {x, y ,z};
+  //sort(xyz.begin(), xyz.end());
+  //double distance = xyz[0] * sqrt(3.0) + (xyz[1] - xyz[0]) * sqrt(2.0) + xyz[2] - xyz[1];
+
+  //Euclidean
+  double distance = sqrt(x*x + y*y + z*z);
+
+  //Manhattan
+  //double distance = x + y + z;
   return distance;
 }
 
