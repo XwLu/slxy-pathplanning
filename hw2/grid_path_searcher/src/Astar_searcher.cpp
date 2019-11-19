@@ -199,11 +199,21 @@ double AstarPathFinder::getHeu(GridNodePtr node1, GridNodePtr node2)
   //double distance = xyz[0] * sqrt(3.0) + (xyz[1] - xyz[0]) * sqrt(2.0) + xyz[2] - xyz[1];
 
   //Euclidean
-  //double distance = sqrt(x*x + y*y + z*z);
+  double distance = sqrt(x*x + y*y + z*z);
 
   //Manhattan
-  double distance = x + y + z;
-  return distance;
+  //double distance = x + y + z;
+
+  //Tie Breaker
+  Eigen::Vector3i curr2goal = node1->index - node2->index;
+  Eigen::Vector3i start2goal = startIdx - goalIdx;
+  double cross = start2goal.dot(curr2goal);
+
+  double heuristic = 0.0;
+  heuristic += distance;
+  heuristic *= (1 + 0.001*cross);
+
+  return heuristic;
 }
 
 void AstarPathFinder::AstarGraphSearch(Vector3d start_pt, Vector3d end_pt)
@@ -214,6 +224,7 @@ void AstarPathFinder::AstarGraphSearch(Vector3d start_pt, Vector3d end_pt)
   Vector3i start_idx = coord2gridIndex(start_pt);
   Vector3i end_idx   = coord2gridIndex(end_pt);
   goalIdx = end_idx;
+  startIdx = start_idx;
 
   //position of start_point and end_point
   start_pt = gridIndex2coord(start_idx);
@@ -306,15 +317,7 @@ void AstarPathFinder::AstarGraphSearch(Vector3d start_pt, Vector3d end_pt)
         please write your code below
         *
         */
-        //Tie Breaker
-//        double dx1 = abs(currentPtr->index(0) - goalIdx(0));
-//        double dy1 = abs(currentPtr->index(1) - goalIdx(1));
-//        double dz1 = abs(currentPtr->index(2) - goalIdx(2));
-//        double dx2 = abs(startPtr->index(0) - goalIdx(0));
-//        double dy2 = abs(startPtr->index(1) - goalIdx(1));
-//        double dz2 = abs(startPtr->index(2) - goalIdx(2));
-//        double cross = fabs(dx1*dy2 - dx2*dy1 + dx1*dz2 - dx2*dz1 + dy1*dz2 - dy2*dz1);
-//        f += 0.001 * cross;
+
 
         neighborPtr->id = 1;
         neighborPtr->cameFrom = currentPtr;
@@ -341,15 +344,7 @@ void AstarPathFinder::AstarGraphSearch(Vector3d start_pt, Vector3d end_pt)
             }
             it++;
           }
-          //Tie Breaker
-//          double dx1 = abs(currentPtr->index(0) - goalIdx(0));
-//          double dy1 = abs(currentPtr->index(1) - goalIdx(1));
-//          double dz1 = abs(currentPtr->index(2) - goalIdx(2));
-//          double dx2 = abs(startPtr->index(0) - goalIdx(0));
-//          double dy2 = abs(startPtr->index(1) - goalIdx(1));
-//          double dz2 = abs(startPtr->index(2) - goalIdx(2));
-//          double cross = fabs(dx1*dy2 - dx2*dy1 + dx1*dz2 - dx2*dz1 + dy1*dz2 - dy2*dz1);
-//          f += 0.001 * cross;
+
           //update
           neighborPtr->gScore = g;
           neighborPtr->fScore = f;

@@ -251,15 +251,6 @@ void JPSPathFinder::JPSGraphSearch(Eigen::Vector3d start_pt, Eigen::Vector3d end
         please write your code below
         *
         */
-        //Tie Breaker
-        double dx1 = abs(currentPtr->index(0) - goalIdx(0));
-        double dy1 = abs(currentPtr->index(1) - goalIdx(1));
-        double dz1 = abs(currentPtr->index(2) - goalIdx(2));
-        double dx2 = abs(startPtr->index(0) - goalIdx(0));
-        double dy2 = abs(startPtr->index(1) - goalIdx(1));
-        double dz2 = abs(startPtr->index(2) - goalIdx(2));
-        double cross = fabs(dx1*dy2 - dx2*dy1 + dx1*dz2 - dx2*dz1 + dy1*dz2 - dy2*dz1);
-        f += 0.001 * cross;
 
         neighborPtr->id = 1;
         neighborPtr->cameFrom = currentPtr;
@@ -290,15 +281,6 @@ void JPSPathFinder::JPSGraphSearch(Eigen::Vector3d start_pt, Eigen::Vector3d end
           }
           it++;
         }
-        //Tie Breaker
-        double dx1 = abs(currentPtr->index(0) - goalIdx(0));
-        double dy1 = abs(currentPtr->index(1) - goalIdx(1));
-        double dz1 = abs(currentPtr->index(2) - goalIdx(2));
-        double dx2 = abs(startPtr->index(0) - goalIdx(0));
-        double dy2 = abs(startPtr->index(1) - goalIdx(1));
-        double dz2 = abs(startPtr->index(2) - goalIdx(2));
-        double cross = fabs(dx1*dy2 - dx2*dy1 + dx1*dz2 - dx2*dz1 + dy1*dz2 - dy2*dz1);
-        f += 0.001 * cross;
         //update
         neighborPtr->gScore = g;
         neighborPtr->fScore = f;
