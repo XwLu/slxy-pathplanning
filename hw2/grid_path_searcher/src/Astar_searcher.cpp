@@ -199,10 +199,10 @@ double AstarPathFinder::getHeu(GridNodePtr node1, GridNodePtr node2)
   //double distance = xyz[0] * sqrt(3.0) + (xyz[1] - xyz[0]) * sqrt(2.0) + xyz[2] - xyz[1];
 
   //Euclidean
-  double distance = sqrt(x*x + y*y + z*z);
+  //double distance = sqrt(x*x + y*y + z*z);
 
   //Manhattan
-  //double distance = x + y + z;
+  double distance = x + y + z;
   return distance;
 }
 
@@ -307,14 +307,15 @@ void AstarPathFinder::AstarGraphSearch(Vector3d start_pt, Vector3d end_pt)
         *
         */
         //Tie Breaker
-        auto it = openSet.begin();
-        while(it != openSet.end()){
-          if (it->first == f){
-            f += 1.0 / (GLX_SIZE + GLZ_SIZE + GLYZ_SIZE);
-            break;
-          }
-          it++;
-        }
+//        double dx1 = abs(currentPtr->index(0) - goalIdx(0));
+//        double dy1 = abs(currentPtr->index(1) - goalIdx(1));
+//        double dz1 = abs(currentPtr->index(2) - goalIdx(2));
+//        double dx2 = abs(startPtr->index(0) - goalIdx(0));
+//        double dy2 = abs(startPtr->index(1) - goalIdx(1));
+//        double dz2 = abs(startPtr->index(2) - goalIdx(2));
+//        double cross = fabs(dx1*dy2 - dx2*dy1 + dx1*dz2 - dx2*dz1 + dy1*dz2 - dy2*dz1);
+//        f += 0.001 * cross;
+
         neighborPtr->id = 1;
         neighborPtr->cameFrom = currentPtr;
         neighborPtr->gScore = g;
@@ -341,14 +342,14 @@ void AstarPathFinder::AstarGraphSearch(Vector3d start_pt, Vector3d end_pt)
             it++;
           }
           //Tie Breaker
-          it = openSet.begin();
-          while(it != openSet.end()){
-            if (it->first == f){
-              f += 1.0 / (GLX_SIZE + GLZ_SIZE + GLYZ_SIZE);
-              break;
-            }
-            it++;
-          }
+//          double dx1 = abs(currentPtr->index(0) - goalIdx(0));
+//          double dy1 = abs(currentPtr->index(1) - goalIdx(1));
+//          double dz1 = abs(currentPtr->index(2) - goalIdx(2));
+//          double dx2 = abs(startPtr->index(0) - goalIdx(0));
+//          double dy2 = abs(startPtr->index(1) - goalIdx(1));
+//          double dz2 = abs(startPtr->index(2) - goalIdx(2));
+//          double cross = fabs(dx1*dy2 - dx2*dy1 + dx1*dz2 - dx2*dz1 + dy1*dz2 - dy2*dz1);
+//          f += 0.001 * cross;
           //update
           neighborPtr->gScore = g;
           neighborPtr->fScore = f;
@@ -387,9 +388,14 @@ vector<Vector3d> AstarPathFinder::getPath()
   *
   */
   GridNodePtr it = terminatePtr;
+  int length = 0;
   while (it != nullptr){
     gridPath.emplace_back(it);
+    //ROS_INFO("x: %d, y: %d, z: %d", it->index(0), it->index(1), it->index(2));
     it = it->cameFrom;
+    length++;
+    if(length > 100)
+      break;
   }
   for (auto ptr: gridPath)
     path.push_back(ptr->coord);

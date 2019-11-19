@@ -177,6 +177,7 @@ void JPSPathFinder::JPSGraphSearch(Eigen::Vector3d start_pt, Eigen::Vector3d end
   //STEP 1: finish the AstarPathFinder::getHeu , which is the heuristic function
   startPtr -> id = 1;
   startPtr -> coord = start_pt;
+  startPtr -> cameFrom = nullptr;
   openSet.insert( make_pair(startPtr -> fScore, startPtr) );
   /*
   *
@@ -235,10 +236,14 @@ void JPSPathFinder::JPSGraphSearch(Eigen::Vector3d start_pt, Eigen::Vector3d end
       *
       */
       neighborPtr = neighborPtrSets[i];
+
+      if(neighborPtr->id == -1)
+        continue;
+
       double g = edgeCostSets[i] + currentPtr->gScore;
       tentative_gScore = g;
       double f = g + getHeu(neighborPtr, endPtr);
-      if(neighborPtr -> id != 1){ //discover a new node
+      if(neighborPtr -> id == 0){ //discover a new node
         /*
         *
         *
@@ -246,22 +251,29 @@ void JPSPathFinder::JPSGraphSearch(Eigen::Vector3d start_pt, Eigen::Vector3d end
         please write your code below
         *
         */
-        auto it = openSet.begin();
-        while(it != openSet.end()){
-          if (it->first == f){
-            f += 1.0 / (GLX_SIZE + GLZ_SIZE + GLYZ_SIZE);
-            break;
-          }
-          it++;
-        }
+        //Tie Breaker
+        double dx1 = abs(currentPtr->index(0) - goalIdx(0));
+        double dy1 = abs(currentPtr->index(1) - goalIdx(1));
+        double dz1 = abs(currentPtr->index(2) - goalIdx(2));
+        double dx2 = abs(startPtr->index(0) - goalIdx(0));
+        double dy2 = abs(startPtr->index(1) - goalIdx(1));
+        double dz2 = abs(startPtr->index(2) - goalIdx(2));
+        double cross = fabs(dx1*dy2 - dx2*dy1 + dx1*dz2 - dx2*dz1 + dy1*dz2 - dy2*dz1);
+        f += 0.001 * cross;
+
         neighborPtr->id = 1;
         neighborPtr->cameFrom = currentPtr;
         neighborPtr->gScore = g;
         neighborPtr->fScore = f;
         openSet.insert(make_pair(f, neighborPtr));
-        continue;
+
+        for(int i = 0; i < 3; i++){
+          neighborPtr->dir(i) = neighborPtr->index(i) - currentPtr->index(i);
+          if( neighborPtr->dir(i) != 0)
+            neighborPtr->dir(i) /= abs( neighborPtr->dir(i) );
+        }
       }
-      else if(tentative_gScore <= neighborPtr-> gScore){ //in open set and need update
+      else if(neighborPtr -> id == 1 && tentative_gScore <= neighborPtr-> gScore){ //in open set and need update
         /*
         *
         *
@@ -279,14 +291,14 @@ void JPSPathFinder::JPSGraphSearch(Eigen::Vector3d start_pt, Eigen::Vector3d end
           it++;
         }
         //Tie Breaker
-        it = openSet.begin();
-        while(it != openSet.end()){
-          if (it->first == f){
-            f += 1.0 / (GLX_SIZE + GLZ_SIZE + GLYZ_SIZE);
-            break;
-          }
-          it++;
-        }
+        double dx1 = abs(currentPtr->index(0) - goalIdx(0));
+        double dy1 = abs(currentPtr->index(1) - goalIdx(1));
+        double dz1 = abs(currentPtr->index(2) - goalIdx(2));
+        double dx2 = abs(startPtr->index(0) - goalIdx(0));
+        double dy2 = abs(startPtr->index(1) - goalIdx(1));
+        double dz2 = abs(startPtr->index(2) - goalIdx(2));
+        double cross = fabs(dx1*dy2 - dx2*dy1 + dx1*dz2 - dx2*dz1 + dy1*dz2 - dy2*dz1);
+        f += 0.001 * cross;
         //update
         neighborPtr->gScore = g;
         neighborPtr->fScore = f;
