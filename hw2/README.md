@@ -77,7 +77,7 @@ x: -4.181687, y: -3.679389, z: 0.240000 | 0.044147 | 21 | 10.252618 |
 
 ---
 
-## JPS with Tie Breaker and Euclidean Heuristic
+## JPS with Euclidean Heuristic
 
 Position(m) | Time cost(ms) |  visited nodes | cost
 -|-|-|-
