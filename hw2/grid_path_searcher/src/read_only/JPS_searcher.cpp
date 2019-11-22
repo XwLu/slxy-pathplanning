@@ -223,6 +223,7 @@ void JPSPathFinder::JPSGraphSearch(Eigen::Vector3d start_pt, Eigen::Vector3d end
     please write your code below
     *
     */
+    //ROS_INFO("Find %d neighbours", neighborPtrSets.size());
     for(int i = 0; i < (int)neighborPtrSets.size(); i++){
       /*
       *
@@ -256,15 +257,14 @@ void JPSPathFinder::JPSGraphSearch(Eigen::Vector3d start_pt, Eigen::Vector3d end
         neighborPtr->cameFrom = currentPtr;
         neighborPtr->gScore = g;
         neighborPtr->fScore = f;
-        openSet.insert(make_pair(f, neighborPtr));
-
         for(int i = 0; i < 3; i++){
           neighborPtr->dir(i) = neighborPtr->index(i) - currentPtr->index(i);
           if( neighborPtr->dir(i) != 0)
             neighborPtr->dir(i) /= abs( neighborPtr->dir(i) );
         }
+        openSet.insert(make_pair(f, neighborPtr));
       }
-      else if(neighborPtr -> id == 1 && tentative_gScore <= neighborPtr-> gScore){ //in open set and need update
+      else if(neighborPtr -> id == 1 && tentative_gScore < neighborPtr-> gScore){ //in open set and need update
         /*
         *
         *
@@ -285,7 +285,6 @@ void JPSPathFinder::JPSGraphSearch(Eigen::Vector3d start_pt, Eigen::Vector3d end
         neighborPtr->gScore = g;
         neighborPtr->fScore = f;
         neighborPtr->cameFrom = currentPtr;
-        openSet.insert(make_pair(f, neighborPtr));
 
         // if change its parents, update the expanding direction
         //THIS PART IS ABOUT JPS, you can ignore it when you do your Astar work
@@ -294,6 +293,7 @@ void JPSPathFinder::JPSGraphSearch(Eigen::Vector3d start_pt, Eigen::Vector3d end
           if( neighborPtr->dir(i) != 0)
             neighborPtr->dir(i) /= abs( neighborPtr->dir(i) );
         }
+        openSet.insert(make_pair(f, neighborPtr));
       }
     }
   }
