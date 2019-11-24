@@ -59,15 +59,16 @@ void rcvWaypointsCallback(const nav_msgs::Path & wp)
                                     {4.923557, 4.931692, 1.999999},
                                     {-4.898851, -4.866039, 3.059998}};
   Vector3d target_pt;
-//  target_pt << wp.poses[0].pose.position.x,
-//          wp.poses[0].pose.position.y,
-//          wp.poses[0].pose.position.z;
+  target_pt << wp.poses[0].pose.position.x,
+          wp.poses[0].pose.position.y,
+          wp.poses[0].pose.position.z;
   ROS_INFO("[node] receive the planning target");
-  for(const auto& target : targets){
-    target_pt << target[0], target[1], target[2];
-    ROS_INFO("x: %f, y: %f, z: %f",  target_pt(0),  target_pt(1),  target_pt(2));
-    pathFinding(_start_pt, target_pt);
-  }
+  pathFinding(_start_pt, target_pt);
+//  for(const auto& target : targets){
+//    target_pt << target[0], target[1], target[2];
+//    ROS_INFO("x: %f, y: %f, z: %f",  target_pt(0),  target_pt(1),  target_pt(2));
+//    pathFinding(_start_pt, target_pt);
+//  }
 
 }
 
@@ -114,7 +115,7 @@ void rcvPointCloudCallBack(const sensor_msgs::PointCloud2 & pointcloud_map)
 
 void pathFinding(const Vector3d start_pt, const Vector3d target_pt)
 {
-  const bool use_jps = 1;
+  const bool use_jps = 0;
   if (!use_jps){
     //Call A* to search for a path
     _astar_path_finder->AstarGraphSearch(start_pt, target_pt);
